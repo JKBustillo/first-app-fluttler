@@ -13,6 +13,17 @@ class MyApp extends StatelessWidget {
       appBar: new AppBar(
         title: new Text("Stateless Widget")
       ),
+      body: new Container(
+        child: Center(
+          child: new Column(
+            children: <Widget>[
+              new Text("Flutter"),
+              new Text("se está poniendo"),
+              new Text("bien pechi")
+            ],
+          ),
+        )
+      ),
     );
   }
 }
