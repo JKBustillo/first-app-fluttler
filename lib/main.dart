@@ -1,47 +1,41 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 void main() {
   runApp(new MaterialApp(
-    home: MyButton(),
+    home: MyTextField(),
   ));
 }
 
-class MyButton extends StatefulWidget {
+class MyTextField extends StatefulWidget {
+  MyTextField({Key key}) : super(key: key);
+
   @override
-  _MyButtonState createState() => new _MyButtonState();
+  _MyTextFieldState createState() => _MyTextFieldState();
 }
 
-class _MyButtonState extends State<MyButton> {
-  String text = "";
-
-  void onPressButton() {
-    setState(() {
-      text = new Random().nextInt(100).toString();
-    });
+class _MyTextFieldState extends State<MyTextField> {
+  void onChanged(String value) {
+    print(value);
   }
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: new AppBar(
-        title: new Text("Stateful Widget"),
-        backgroundColor: Colors.orangeAccent,
+        title: new Text("Text Field Widget"),
+        backgroundColor: Colors.redAccent,
       ),
       body: new Container(
         child: new Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: new Column(
             children: <Widget>[
-              new Text(text, style: new TextStyle(fontSize: 50.0)),
-              new Padding(padding: new EdgeInsets.all(10.0)),
-              new RaisedButton(
-                child: new Text("Update", style: new TextStyle(color: Colors.white)),
-                color: Colors.blueAccent,
-                onPressed: onPressButton,
+              new TextField(
+                decoration: new InputDecoration(hintText: "Write something"),
+                onSubmitted: (String value) {onChanged(value);},
               )
             ],
-          ),
-        )
+          )
+        ),
       ),
     );
   }
