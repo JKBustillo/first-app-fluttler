@@ -15,9 +15,13 @@ class MyTextField extends StatefulWidget {
 
 class _MyTextFieldState extends State<MyTextField> {
   String inputValue = "";
+
+  final TextEditingController controller = new TextEditingController();
+
   void onSubmitted(String value) {
     setState(() {
-      inputValue = value;
+      inputValue = inputValue + "\n" + value;
+      controller.text = "";
     });
   }
 
@@ -29,14 +33,19 @@ class _MyTextFieldState extends State<MyTextField> {
         backgroundColor: Colors.redAccent,
       ),
       body: new Container(
+        padding: const EdgeInsets.all(10.0),
         child: new Center(
           child: new Column(
             children: <Widget>[
               new TextField(
                 decoration: new InputDecoration(hintText: "Write something"),
                 onSubmitted: (String value) {onSubmitted(value);},
+                controller: controller,
               ),
-              new Text(inputValue)
+              new Container(
+                padding: const EdgeInsets.all(10.0),
+                child: new Text(inputValue)
+              ),
             ],
           )
         ),
