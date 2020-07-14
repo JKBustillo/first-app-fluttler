@@ -14,6 +14,14 @@ class MyAlert extends StatefulWidget {
 }
 
 class _MyAlertState extends State<MyAlert> {
+  void _showAlert(String value) {
+    AlertDialog dialog = new AlertDialog(
+      content: new Text(value),
+    );
+
+    showDialog(context: context, child: dialog);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +39,7 @@ class _MyAlertState extends State<MyAlert> {
                ),
                new RaisedButton(
                  child: new Text("See alert"),
-                 onPressed: null
+                 onPressed: () {_showAlert("Hey");},
                )
              ],
            ),
