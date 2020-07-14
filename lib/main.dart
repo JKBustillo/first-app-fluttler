@@ -2,54 +2,41 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(new MaterialApp(
-    home: MyTextField(),
+    home: MyAlert(),
   ));
 }
 
-class MyTextField extends StatefulWidget {
-  MyTextField({Key key}) : super(key: key);
+class MyAlert extends StatefulWidget {
+  MyAlert({Key key}) : super(key: key);
 
   @override
-  _MyTextFieldState createState() => _MyTextFieldState();
+  _MyAlertState createState() => _MyAlertState();
 }
 
-class _MyTextFieldState extends State<MyTextField> {
-  String inputValue = "";
-
-  final TextEditingController controller = new TextEditingController();
-
-  void onSubmitted(String value) {
-    setState(() {
-      inputValue = inputValue + "\n" + value;
-      controller.text = "";
-    });
-  }
-
+class _MyAlertState extends State<MyAlert> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        title: new Text("Text Field Widget"),
-        backgroundColor: Colors.redAccent,
-      ),
-      body: new Container(
-        padding: const EdgeInsets.all(10.0),
-        child: new Center(
-          child: new Column(
-            children: <Widget>[
-              new TextField(
-                decoration: new InputDecoration(hintText: "Write something"),
-                onSubmitted: (String value) {onSubmitted(value);},
-                controller: controller,
-              ),
-              new Container(
-                padding: const EdgeInsets.all(10.0),
-                child: new Text(inputValue)
-              ),
-            ],
-          )
-        ),
-      ),
+       appBar: new AppBar(
+         title: new Text("Demo Alert Dialog")
+       ),
+       body: new Container(
+         child: new Center(
+           child: new Column(
+             children: <Widget>[
+               new TextField(
+                 decoration: new InputDecoration(
+                   hintText: "Type something"
+                 ),
+               ),
+               new RaisedButton(
+                 child: new Text("See alert"),
+                 onPressed: null
+               )
+             ],
+           ),
+         ),
+       ),
     );
   }
 }
