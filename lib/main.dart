@@ -2,69 +2,62 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(new MaterialApp(
-    home: MyAlert(),
+    home: MyStepper(),
   ));
 }
 
-class MyAlert extends StatefulWidget {
-  MyAlert({Key key}) : super(key: key);
+class MyStepper extends StatefulWidget {
+  MyStepper({Key key}) : super(key: key);
 
   @override
-  _MyAlertState createState() => _MyAlertState();
+  _MyStepperState createState() => _MyStepperState();
 }
 
-enum DialogAction {
-  yes,
-  no
-}
-
-class _MyAlertState extends State<MyAlert> {
-  String _inputValue = "";
-
-  void _alertResult(DialogAction action) {
-    print("Your selection is: $action");
-  }
-
-  void _showAlert(String value) {
-    AlertDialog dialog = new AlertDialog(
-      content: new Text(value),
-      actions: <Widget>[
-        new FlatButton(onPressed: () { _alertResult(DialogAction.yes); }, child: new Text("Yes"),),
-        new FlatButton(onPressed: () { _alertResult(DialogAction.no); }, child: new Text("No"),),
-      ],
-    );
-
-    showDialog(context: context, child: dialog);
-  }
-
-  void _onChanged(String value) {
-    setState(() {
-      _inputValue = value;
-    });
-  }
+class _MyStepperState extends State<MyStepper> {
+  int _currentStep = 0;
+  List<Step> mySteps = [
+    new Step(
+      title: new Text("Step 1"),
+      content: new Text("Learn Flutter")
+    ),
+    new Step(
+      title: new Text("Step 2"),
+      content: new Text("Develop App")
+    ),
+    new Step(
+      title: new Text("Step 3"),
+      content: new Text("Deploy App")
+    )
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: new AppBar(
-         title: new Text("Demo Alert Dialog")
+         title: new Text("Stepper")
        ),
        body: new Container(
-         child: new Center(
-           child: new Column(
-             children: <Widget>[
-               new TextField(
-                 decoration: new InputDecoration(
-                   hintText: "Type something"
-                 ),
-                 onChanged: (String value) { _onChanged(value);},
-               ),
-               new RaisedButton(
-                 child: new Text("See alert"),
-                 onPressed: () {_showAlert(_inputValue);},
-               )
-             ],
-           ),
+         child: new Stepper(
+           currentStep: this._currentStep,
+           steps: mySteps,
+           onStepContinue: () {
+             setState(() {
+               if (_currentStep < mySteps.length-1) {
+                 _currentStep++;
+               } else {
+                 _currentStep = 0;
+               }
+             });
+           },
+           onStepCancel: () {
+             setState(() {
+               if (_currentStep > 0) {
+                 _currentStep--;
+               } else {
+                 _currentStep = mySteps.length-1;
+               }
+             });
+           },
          ),
        ),
     );
