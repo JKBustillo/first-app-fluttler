@@ -2,62 +2,44 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(new MaterialApp(
-    home: MyStepper(),
+    home: MyTabs(),
   ));
 }
 
-class MyStepper extends StatefulWidget {
-  MyStepper({Key key}) : super(key: key);
+class MyTabs extends StatefulWidget {
+  MyTabs({Key key}) : super(key: key);
 
   @override
-  _MyStepperState createState() => _MyStepperState();
+  _MyTabsState createState() => _MyTabsState();
 }
 
-class _MyStepperState extends State<MyStepper> {
-  int _currentStep = 0;
-  List<Step> mySteps = [
-    new Step(
-      title: new Text("Step 1"),
-      content: new Text("Learn Flutter")
-    ),
-    new Step(
-      title: new Text("Step 2"),
-      content: new Text("Develop App")
-    ),
-    new Step(
-      title: new Text("Step 3"),
-      content: new Text("Deploy App")
-    )
-  ];
+class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
+  TabController controller;
+  @override
+  void initState() {
+    super.initState();
+    controller = new TabController(length: 3, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: new AppBar(
-         title: new Text("Stepper")
-       ),
-       body: new Container(
-         child: new Stepper(
-           currentStep: this._currentStep,
-           steps: mySteps,
-           onStepContinue: () {
-             setState(() {
-               if (_currentStep < mySteps.length-1) {
-                 _currentStep++;
-               } else {
-                 _currentStep = 0;
-               }
-             });
-           },
-           onStepCancel: () {
-             setState(() {
-               if (_currentStep > 0) {
-                 _currentStep--;
-               } else {
-                 _currentStep = mySteps.length-1;
-               }
-             });
-           },
+         title: new Text("My Tabs"),
+         backgroundColor: Colors.redAccent,
+         bottom: new TabBar(
+           tabs: <Widget>[
+             new Tab(
+               icon: new Icon(Icons.home),
+             ),
+             new Tab(
+               icon: new Icon(Icons.video_library),
+             ),
+             new Tab(
+               icon: new Icon(Icons.contacts),
+             )
+           ],
+           controller: controller,
          ),
        ),
     );
