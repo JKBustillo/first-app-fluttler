@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-
 void main() {
   runApp(new MaterialApp(
-    home: MyTabs(),
+    home: MyNavigator(),
   ));
 }
 
-class MyTabs extends StatefulWidget {
-  MyTabs({Key key}) : super(key: key);
+class MyNavigator extends StatefulWidget {
+  MyNavigator({Key key}) : super(key: key);
 
   @override
-  _MyTabsState createState() => _MyTabsState();
+  _MyNavigatorState createState() => _MyNavigatorState();
 }
 
-class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
+class _MyNavigatorState extends State<MyNavigator> with SingleTickerProviderStateMixin {
   TabController controller;
   @override
   void initState() {
@@ -24,24 +23,24 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: new AppBar(
-         title: new Text("My Tabs"),
-         backgroundColor: Colors.redAccent,
-         bottom: new TabBar(
-           tabs: <Widget>[
-             new Tab(
-               icon: new Icon(Icons.home),
-             ),
-             new Tab(
-               icon: new Icon(Icons.video_library),
-             ),
-             new Tab(
-               icon: new Icon(Icons.contacts),
-             )
-           ],
-           controller: controller,
-         ),
-       ),
+      appBar: new AppBar(
+        title: new Text("Bottom Navigation Bar"),
+      ),
+      bottomNavigationBar: new Material(
+        color: Colors.blueAccent,
+        child: new TabBar(
+          tabs: <Tab> [
+            new Tab(
+              icon: new Icon(Icons.alarm),
+            ),new Tab(
+              icon: new Icon(Icons.watch_later),
+            ),new Tab(
+              icon: new Icon(Icons.airplanemode_active),
+            )
+          ],
+          controller: controller,
+        ),
+      ),
     );
   }
 }
