@@ -33,6 +33,15 @@ class MyButton extends StatelessWidget {
         Scaffold.of(context).showSnackBar(new SnackBar(
           content: new Text("Couldn't you help it, huh?"),
           duration: new Duration(seconds: 5),
+          action: new SnackBarAction(
+            label: "Press here",
+            onPressed: () {
+              Scaffold.of(context).showSnackBar(new SnackBar(
+                content: new Text("You did it again!"),
+                duration: new Duration(seconds: 5),
+              ));
+            }
+          ),
         ));
       },
     );
