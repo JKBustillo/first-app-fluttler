@@ -8,21 +8,29 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Drawer _getDrawer(BuildContext context) {
+    ListTile _getItem(Icon icon, String description, String route) {
+      return new ListTile(
+        title: new Text(description),
+        leading: icon,
+        onTap: () {
+          setState(() {
+            Navigator.of(context).pushNamed(route);
+          });
+        }
+      ); 
+    }
+    
+    ListView listView = new ListView(children: <Widget>[
+      _getItem(new Icon(Icons.home), "Home", "/"),
+      _getItem(new Icon(Icons.settings), "Settings", "/settings"),
+      _getItem(new Icon(Icons.battery_charging_full), "Battery", "/battery"),
+    ]);
 
-  ListView listView = new ListView(children: <Widget>[
-    new ListTile(
-      title: new Text("Home"),
-      leading: new Icon(Icons.home),
-    ),
-    new ListTile(
-      title: new Text("Battery"),
-      leading: new Icon(Icons.battery_charging_full),
-    ),
-    new ListTile(
-      title: new Text("Settings"),
-      leading: new Icon(Icons.settings)
-    )
-  ]);
+    return new Drawer(
+      child: listView,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +38,7 @@ class _HomeState extends State<Home> {
        appBar: new AppBar(
          title: new Text("Home page")
        ),
-       drawer: new Drawer(
-         child: listView,
-       ),
+       drawer: _getDrawer(context),
     );
   }
 }
