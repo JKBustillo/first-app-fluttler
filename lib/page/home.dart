@@ -10,6 +10,13 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   Drawer _getDrawer(BuildContext context) {
     var header = new DrawerHeader(child: new Text("Drawer"),);
+    var info = new AboutListTile(
+      child: new Text("About app"),
+      applicationVersion: "v1.0.0",
+      applicationName: "Drawer",
+      applicationIcon: new Icon(Icons.note),
+      icon: new Icon(Icons.info),
+    );
 
     ListTile _getItem(Icon icon, String description, String route) {
       return new ListTile(
@@ -28,6 +35,7 @@ class _HomeState extends State<Home> {
       _getItem(new Icon(Icons.home), "Home", "/"),
       _getItem(new Icon(Icons.settings), "Settings", "/settings"),
       _getItem(new Icon(Icons.battery_charging_full), "Battery", "/battery"),
+      info
     ]);
 
     return new Drawer(
