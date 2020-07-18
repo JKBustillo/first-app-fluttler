@@ -1,28 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:first_app/page/home.dart';
 
 void main() {
   runApp(new MaterialApp(
-    home: MyFirst(),
+    home: Home(),
   ));
-}
-
-class MyFirst extends StatelessWidget {
-  const MyFirst({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(
-        title: new Text("First Screen")
-      ),
-      body: new Center(
-        child: new RaisedButton(
-          child: new Text("Show new screen"),
-          onPressed: () {
-
-          },
-        )
-      ),
-    );
-  }
 }
