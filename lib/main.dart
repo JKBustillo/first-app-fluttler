@@ -21,14 +21,41 @@ class _MyRandomWordsState extends State<MyRandomWords> {
        appBar: new AppBar(
          title: new Text("Infinite List"),
          centerTitle: true,
+         actions: <Widget>[
+           new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved)
+         ],
        ),
        body: _buildSuggestions(),
     );
   }
 
+  void _pushSaved() {
+    Navigator.of(context).push(
+      new MaterialPageRoute(
+        builder: (context) {
+          final tiles = _favorites.map((pair) {
+            return new ListTile(title: new Text(pair.asPascalCase));
+          });
+
+          final divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles
+          ).toList();
+
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text("Favorites")
+            ),
+            body: new ListView(children: divided),
+          );
+        }
+      )
+    );
+  }
+
   Widget _buildRow(WordPair pair) {
     final bool saved = _favorites.contains(pair);
-    
+
     return ListTile(
       title: new Text(pair.asPascalCase),
       trailing: new Icon(saved ? Icons.favorite : Icons.favorite_border, color: Colors.redAccent),
