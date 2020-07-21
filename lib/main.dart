@@ -14,6 +14,7 @@ class MyRandomWords extends StatefulWidget {
 
 class _MyRandomWordsState extends State<MyRandomWords> {
   final _suggestions = <WordPair>[];
+  final _favorites = new Set<WordPair>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +27,20 @@ class _MyRandomWordsState extends State<MyRandomWords> {
   }
 
   Widget _buildRow(WordPair pair) {
+    final bool saved = _favorites.contains(pair);
+    
     return ListTile(
-      title: new Text(pair.asPascalCase)
+      title: new Text(pair.asPascalCase),
+      trailing: new Icon(saved ? Icons.favorite : Icons.favorite_border, color: Colors.redAccent),
+      onTap: () {
+        setState(() {
+          if (saved) {
+            _favorites.remove(pair);
+          } else {
+            _favorites.add(pair);
+          }
+        });
+      },
     );
   }
 
