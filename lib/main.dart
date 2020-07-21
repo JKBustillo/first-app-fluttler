@@ -13,6 +13,7 @@ class MyRandomWords extends StatefulWidget {
 }
 
 class _MyRandomWordsState extends State<MyRandomWords> {
+  final _suggestions = <WordPair>[];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +21,28 @@ class _MyRandomWordsState extends State<MyRandomWords> {
          title: new Text("Infinite List"),
          centerTitle: true,
        ),
+       body: _buildSuggestions(),
+    );
+  }
+
+  Widget _buildRow(WordPair pair) {
+    return ListTile(
+      title: new Text(pair.asPascalCase)
+    );
+  }
+
+  Widget _buildSuggestions() {
+    return new ListView.builder(
+      itemBuilder: (context, i) {
+        if (i.isOdd) return new Divider();
+
+        final index = i ~/ 2;
+
+        if (index >= _suggestions.length) {
+          _suggestions.addAll(generateWordPairs().take(10));
+        }
+        return _buildRow(_suggestions[index]);
+      }
     );
   }
 }
